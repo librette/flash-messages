@@ -37,7 +37,7 @@ class FlashMessages extends Control
 
 	public function render()
 	{
-		$this->tmeplate->typeClasses = self::$typeClasses;
+		$this->template->typeClasses = self::$typeClasses;
 		$this->template->flashes = $this->parent->template->flashes;
 	}
 
