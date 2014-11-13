@@ -39,6 +39,10 @@ class FlashMessages extends Control
 	{
 		$this->template->typeClasses = self::$typeClasses;
 		$this->template->flashes = $this->parent->template->flashes;
+		if (!$this->template->getFile()) {
+			$this->template->setFile(__DIR__ . '/flashMessages.latte');
+		}
+		$this->template->render();
 	}
 
 }
