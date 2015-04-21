@@ -49,6 +49,9 @@ trait TEnhancedFlashMessages
 	/**
 	 * @return ITranslator
 	 */
-	public abstract function getTranslator();
+	protected function getTranslator()
+	{
+		return new DummyTranslator();
+	}
 
 }
