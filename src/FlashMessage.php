@@ -74,6 +74,28 @@ class FlashMessage extends Object
 
 
 	/**
+	 * @return self
+	 */
+	public function info()
+	{
+		$this->setType(self::TYPE_INFO);
+
+		return $this;
+	}
+
+
+	/**
+	 * @return self
+	 */
+	public function warning()
+	{
+		$this->setType(self::TYPE_WARNING);
+
+		return $this;
+	}
+
+
+	/**
 	 * @return string
 	 */
 	public function getMessage()
