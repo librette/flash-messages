@@ -12,6 +12,10 @@ use Nette\Localization\ITranslator;
 trait TEnhancedFlashMessages
 {
 
+	/** @var ITranslator|null */
+	private $flashMessagesTranslator;
+
+
 	/**
 	 * @param string
 	 * @param string
@@ -47,11 +51,29 @@ trait TEnhancedFlashMessages
 
 
 	/**
+	 * @param ITranslator|NULL
+	 */
+	public function injectFlashMessagesTranslator(ITranslator $translator = NULL)
+	{
+		$this->flashMessagesTranslator = $translator;
+	}
+
+
+	/**
 	 * @return ITranslator
 	 */
 	protected function getTranslator()
 	{
-		return new DummyTranslator();
+		if ($this->flashMessagesTranslator === NULL) {
+			$presenter = $this->getPresenter(FALSE);
+			if ($presenter && $translator = $presenter->getContext()->getByType('Nette\Localization\ITranslator', FALSE)) {
+				$this->flashMessagesTranslator = $translator;
+			} else {
+				$this->flashMessagesTranslator = new DummyTranslator();
+			}
+		}
+
+		return $this->flashMessagesTranslator;
 	}
 
 }
