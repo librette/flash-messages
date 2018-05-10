@@ -2,13 +2,15 @@
 namespace Librette\FlashMessages;
 
 use Nette\Localization\ITranslator;
-use Nette\Object;
+use Nette\SmartObject;
 
 /**
  * @author David Matejka
  */
-class FlashMessage extends Object
+class FlashMessage
 {
+
+	use SmartObject;
 
 	const TYPE_INFO = 'info';
 	const TYPE_SUCCESS = 'success';

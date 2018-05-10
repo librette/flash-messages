@@ -2,13 +2,15 @@
 namespace Librette\FlashMessages;
 
 use Nette\Localization\ITranslator;
-use Nette\Object;
+use Nette\SmartObject;
 
 /**
  * @author David Matejka
  */
-class DummyTranslator extends Object implements ITranslator
+class DummyTranslator implements ITranslator
 {
+
+	use SmartObject;
 
 	function translate($message, $count = NULL)
 	{

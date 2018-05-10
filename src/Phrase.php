@@ -2,13 +2,15 @@
 namespace Librette\FlashMessages;
 
 use Nette\Localization\ITranslator;
-use Nette\Object;
+use Nette\SmartObject;
 
 /**
  * @author David Matejka
  */
-class Phrase extends Object implements IPhrase
+class Phrase implements IPhrase
 {
+
+	use SmartObject;
 
 	/** @var string */
 	protected $message;
