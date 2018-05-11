@@ -4,13 +4,15 @@ namespace Librette\FlashMessages\Adapters;
 use Kdyby\Translation\Phrase;
 use Librette\FlashMessages\IPhrase;
 use Nette\Localization\ITranslator;
-use Nette\Object;
+use Nette\SmartObject;
 
 /**
  * @author David Matejka
  */
-class KdybyPhraseAdapter extends Object implements IPhrase
+class KdybyPhraseAdapter implements IPhrase
 {
+
+	use SmartObject;
 
 	/** @var Phrase */
 	protected $phrase;
