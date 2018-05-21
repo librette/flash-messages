@@ -1,7 +1,7 @@
 {snippet}
 {foreach $flashes as $flash}
-	<div class='{isset($typeClasses[$flash->type]) ? $typeClasses[$flash->type] : $typeClasses[NULL]}'>
-		{$flash->message}
+	<div class='{isset($typeClasses[$flash->getType()]) ? $typeClasses[$flash->getType()] : $typeClasses[NULL]}'>
+		{$flash->getMessage()}
 	</div>
 {/foreach}
 {/snippet}
