@@ -12,7 +12,7 @@ class DummyTranslator implements ITranslator
 
 	use SmartObject;
 
-	function translate($message, $count = NULL)
+	function translate($message, ...$parameters): string
 	{
 		return $message;
 	}

@@ -38,7 +38,7 @@ class FlashMessages extends Control
 	}
 
 
-	protected function validateParent(Nette\ComponentModel\IContainer $parent)
+	protected function validateParent(Nette\ComponentModel\IContainer $parent): void
 	{
 		if (!$parent instanceof Control) {
 			throw new Nette\InvalidStateException("FlashMessages component can be attached only to the UI\\Control descendant.");

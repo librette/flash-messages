@@ -7,7 +7,7 @@ use Nette\SmartObject;
 /**
  * @author David Matejka
  */
-class FlashMessage
+class FlashMessage extends \stdClass
 {
 
 	use SmartObject;

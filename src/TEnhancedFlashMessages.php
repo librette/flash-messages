@@ -21,7 +21,7 @@ trait TEnhancedFlashMessages
 	 * @param array
 	 * @return FlashMessage
 	 */
-	public function flashMessage($message, $type = 'info', $count = NULL, $parameters = [])
+	public function flashMessage($message, string $type = 'info', $count = NULL, $parameters = []): \stdClass
 	{
 		if (is_numeric($type)) {
 			$parameters = empty($count) ? [] : $count;
