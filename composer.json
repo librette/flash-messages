@@ -15,8 +15,6 @@
 		"nette/utils": "~2.2"
 	},
 	"require-dev": {
-		"kdyby/translation": "@dev",
-		"nette/tester": "@dev"
 	},
 	"autoload": {
 		"psr-4": {

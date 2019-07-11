@@ -1,8 +1,6 @@
 <?php
 namespace Librette\FlashMessages;
 
-use Kdyby\Translation\Phrase as KdybyPhrase;
-use Librette\FlashMessages\Adapters\KdybyPhraseAdapter;
 use Nette\Localization\ITranslator;
 
 /**
@@ -33,9 +31,8 @@ trait TEnhancedFlashMessages
 			$parameters = $type;
 			$type = 'info';
 		}
-		if ($message instanceof KdybyPhrase) {
-			$message = new KdybyPhraseAdapter($message);
-		} elseif (!$message instanceof IPhrase) {
+
+		if (!$message instanceof IPhrase) {
 			$message = new Phrase($message, $count, $parameters);
 		}
 
