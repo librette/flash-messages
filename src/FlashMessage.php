@@ -5,6 +5,10 @@ namespace Librette\FlashMessages;
 use Nette\Localization\ITranslator;
 use Nette\SmartObject;
 
+/**
+ * @property-read string $message
+ * @property-read string $type
+ */
 class FlashMessage extends \stdClass
 {
 	use SmartObject;
