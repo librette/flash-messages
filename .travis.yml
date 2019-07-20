@@ -12,6 +12,6 @@ before_script:
 
 jobs:
   include:
-    -   stage: PHPStan
+    - stage: PHPStan
       install: composer update --prefer-dist
       script: vendor/bin/phpstan analyse --configuration phpstan.neon --level 7 src/
