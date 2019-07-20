@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types = 1);
+
 namespace Librette\FlashMessages\Component;
 
 use Librette\FlashMessages\FlashMessage;
@@ -6,9 +7,6 @@ use Nette;
 use Nette\Application\UI\Control;
 
 
-/**
- * @author David Matejka
- */
 class FlashMessages extends Control
 {
 
@@ -17,7 +15,7 @@ class FlashMessages extends Control
 		FlashMessage::TYPE_SUCCESS => 'alert alert-success',
 		FlashMessage::TYPE_WARNING => 'alert alert-warning',
 		FlashMessage::TYPE_ERROR => 'alert alert-danger',
-		NULL => 'alert',
+		null => 'alert',
 	];
 
 	/** @var array|null */
@@ -29,10 +27,7 @@ class FlashMessages extends Control
 	}
 
 
-	/**
-	 * @param array
-	 */
-	public function setTypeClassMapping(array $typeClassMapping)
+	public function setTypeClassMapping(array $typeClassMapping): void
 	{
 		$this->typeClassMapping = $typeClassMapping;
 	}
@@ -47,10 +42,15 @@ class FlashMessages extends Control
 	}
 
 
-	public function render()
+	public function render(): void
 	{
+		assert($this->template instanceof \stdClass);
 		$this->template->typeClasses = $this->typeClassMapping ?: self::$typeClasses;
-		$this->template->flashes = $this->parent->template->flashes;
+		$parent = $this->parent;
+		assert($parent instanceof Control);
+		assert($parent->template instanceof \stdClass);
+		$this->template->flashes = $parent->template->flashes;
+		assert($this->template instanceof Nette\Application\UI\ITemplate);
 		if (!$this->template->getFile()) {
 			$this->template->setFile(__DIR__ . '/flashMessages.latte');
 		}

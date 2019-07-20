@@ -1,15 +1,12 @@
-<?php
+<?php declare(strict_types = 1);
+
 namespace Librette\FlashMessages;
 
 use Nette\Localization\ITranslator;
 use Nette\SmartObject;
 
-/**
- * @author David Matejka
- */
 class FlashMessage extends \stdClass
 {
-
 	use SmartObject;
 
 	const TYPE_INFO = 'info';
@@ -17,23 +14,19 @@ class FlashMessage extends \stdClass
 	const TYPE_WARNING = 'warning';
 	const TYPE_ERROR = 'error';
 
-	/** @var string */
+	/** @var null|string */
 	protected $message;
 
 	/** @var string */
 	protected $type;
 
-	/** @var ITranslator */
+	/** @var null|ITranslator */
 	protected $translator;
 
 	/** @var IPhrase */
 	protected $phrase;
 
 
-	/**
-	 * @param ITranslator
-	 * @param IPhrase
-	 */
 	public function __construct(ITranslator $translator, IPhrase $phrase)
 	{
 		$this->translator = $translator;
@@ -41,11 +34,7 @@ class FlashMessage extends \stdClass
 	}
 
 
-	/**
-	 * @param string
-	 * @return self
-	 */
-	public function setType($type)
+	public function setType(string $type): self
 	{
 		$this->type = $type;
 
@@ -53,10 +42,7 @@ class FlashMessage extends \stdClass
 	}
 
 
-	/**
-	 * @return self
-	 */
-	public function success()
+	public function success(): self
 	{
 		$this->setType(self::TYPE_SUCCESS);
 
@@ -64,10 +50,7 @@ class FlashMessage extends \stdClass
 	}
 
 
-	/**
-	 * @return self
-	 */
-	public function error()
+	public function error(): self
 	{
 		$this->setType(self::TYPE_ERROR);
 
@@ -75,10 +58,7 @@ class FlashMessage extends \stdClass
 	}
 
 
-	/**
-	 * @return self
-	 */
-	public function info()
+	public function info(): self
 	{
 		$this->setType(self::TYPE_INFO);
 
@@ -86,10 +66,7 @@ class FlashMessage extends \stdClass
 	}
 
 
-	/**
-	 * @return self
-	 */
-	public function warning()
+	public function warning(): self
 	{
 		$this->setType(self::TYPE_WARNING);
 
@@ -97,30 +74,24 @@ class FlashMessage extends \stdClass
 	}
 
 
-	/**
-	 * @return string
-	 */
-	public function getMessage()
+	public function getMessage(): string
 	{
-		if ($this->message === NULL && $this->translator) {
+		if ($this->message === null && $this->translator !== null) {
 			$this->message = $this->phrase->translate($this->translator);
 		}
+		assert($this->message !== null);
 
 		return $this->message;
 	}
 
 
-	/**
-	 * @param string
-	 * @return self
-	 */
-	public function setMessage($message)
+	public function setMessage(string $message): self
 	{
 		if ($this->isUnserialized()) {
 			$this->message = $message;
 		} else {
 			$this->phrase->setMessage($message);
-			$this->message = NULL;
+			$this->message = null;
 		}
 
 		return $this;
@@ -128,39 +99,32 @@ class FlashMessage extends \stdClass
 
 
 	/**
-	 * @param array
 	 * @throws InvalidStateException when object is unserialized
-	 * @return self
 	 */
-	public function setParameters(array $parameter)
+	public function setParameters(array $parameter): self
 	{
 		$this->validateState(__FUNCTION__);
 		$this->phrase->setParameters($parameter);
-		$this->message = NULL;
+		$this->message = null;
 
 		return $this;
 	}
 
 
 	/**
-	 * @param int
 	 * @throws InvalidStateException when object is unserialized
-	 * @return self
 	 */
-	public function setCount($count)
+	public function setCount(int $count): self
 	{
 		$this->validateState(__FUNCTION__);
 		$this->phrase->setCount($count);
-		$this->message = NULL;
+		$this->message = null;
 
 		return $this;
 	}
 
 
-	/**
-	 * @return string
-	 */
-	public function getType()
+	public function getType(): ?string
 	{
 		return $this->type;
 	}
@@ -174,7 +138,7 @@ class FlashMessage extends \stdClass
 	}
 
 
-	private function validateState($method)
+	private function validateState(string $method): void
 	{
 		if ($this->isUnserialized()) {
 			throw new InvalidStateException("You cannot call method $method on unserialized FlashMessage object");
@@ -182,11 +146,8 @@ class FlashMessage extends \stdClass
 	}
 
 
-	/**
-	 * @return bool
-	 */
-	private function isUnserialized()
+	private function isUnserialized(): bool
 	{
-		return $this->translator === NULL;
+		return $this->translator === null;
 	}
 }

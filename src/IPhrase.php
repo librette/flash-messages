@@ -1,22 +1,19 @@
-<?php
+<?php declare(strict_types = 1);
+
 namespace Librette\FlashMessages;
 
 use Nette\Localization\ITranslator;
 
-/**
- * @author David Matejka
- */
 interface IPhrase
 {
-
-	public function translate(ITranslator $translator);
-
-
-	public function setMessage($message);
+	public function translate(ITranslator $translator): string;
 
 
-	public function setCount($count);
+	public function setMessage(string $message): void;
 
 
-	public function setParameters($parameters);
+	public function setCount(int $count): void;
+
+
+	public function setParameters(array $parameters): void;
 }

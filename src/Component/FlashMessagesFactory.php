@@ -1,14 +1,8 @@
-<?php
+<?php declare(strict_types = 1);
+
 namespace Librette\FlashMessages\Component;
 
-/**
- * @author David Matejka
- */
 interface FlashMessagesFactory
 {
-
-	/**
-	 * @return FlashMessages
-	 */
-	public function create();
+	public function create(): FlashMessages;
 }

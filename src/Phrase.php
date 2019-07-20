@@ -1,28 +1,25 @@
-<?php
+<?php declare(strict_types = 1);
+
 namespace Librette\FlashMessages;
 
 use Nette\Localization\ITranslator;
 use Nette\SmartObject;
 
-/**
- * @author David Matejka
- */
 class Phrase implements IPhrase
 {
-
 	use SmartObject;
 
 	/** @var string */
 	protected $message;
 
-	/** @var int */
+	/** @var int|null */
 	protected $count;
 
 	/** @var array */
 	protected $parameters;
 
 
-	function __construct($message, $count, $parameters)
+	function __construct(string $message, ?int $count, array $parameters)
 	{
 		$this->parameters = $parameters;
 		$this->count = $count;
@@ -30,27 +27,26 @@ class Phrase implements IPhrase
 	}
 
 
-	public function translate(ITranslator $translator)
+	public function translate(ITranslator $translator): string
 	{
 		return $translator->translate($this->message, $this->count, $this->parameters);
 	}
 
 
-	public function setMessage($message)
+	public function setMessage(string $message): void
 	{
 		$this->message = $message;
 	}
 
 
-	public function setCount($count)
+	public function setCount(int $count): void
 	{
 		$this->count = $count;
 	}
 
 
-	public function setParameters($parameters)
+	public function setParameters(array $parameters): void
 	{
 		$this->parameters = $parameters;
 	}
-
 }

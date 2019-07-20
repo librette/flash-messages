@@ -1,37 +1,24 @@
-<?php
+<?php declare(strict_types = 1);
+
 namespace Librette\FlashMessages;
 
 use Nette\Localization\ITranslator;
 
 /**
- * @author David Matejka
  * @mixin \Nette\Application\UI\Control
  */
 trait TEnhancedFlashMessages
 {
-
 	/** @var ITranslator|null */
 	private $flashMessagesTranslator;
 
 
 	/**
-	 * @param string
-	 * @param string
-	 * @param int
-	 * @param array
+	 * @param string|IPhrase $message
 	 * @return FlashMessage
 	 */
-	public function flashMessage($message, string $type = 'info', $count = NULL, $parameters = []): \stdClass
+	public function flashMessage($message, string $type = FlashMessage::TYPE_INFO, ?int $count = null, array $parameters = []): \stdClass
 	{
-		if (is_numeric($type)) {
-			$parameters = empty($count) ? [] : $count;
-			$count = $type;
-			$type = 'info';
-		} elseif (is_array($type)) {
-			$parameters = $type;
-			$type = 'info';
-		}
-
 		if (!$message instanceof IPhrase) {
 			$message = new Phrase($message, $count, $parameters);
 		}
@@ -47,23 +34,17 @@ trait TEnhancedFlashMessages
 	}
 
 
-	/**
-	 * @param ITranslator|NULL
-	 */
-	public function injectFlashMessagesTranslator(ITranslator $translator = NULL)
+	public function injectFlashMessagesTranslator(ITranslator $translator = null): void
 	{
 		$this->flashMessagesTranslator = $translator;
 	}
 
 
-	/**
-	 * @return ITranslator
-	 */
-	protected function getTranslator()
+	protected function getTranslator(): ITranslator
 	{
-		if ($this->flashMessagesTranslator === NULL) {
-			$presenter = $this->getPresenter(FALSE);
-			if ($presenter && $translator = $presenter->getContext()->getByType('Nette\Localization\ITranslator', FALSE)) {
+		if ($this->flashMessagesTranslator === null) {
+			$presenter = $this->getPresenter(false);
+			if ($presenter && $translator = $presenter->getContext()->getByType('Nette\Localization\ITranslator', false)) {
 				$this->flashMessagesTranslator = $translator;
 			} else {
 				$this->flashMessagesTranslator = new DummyTranslator();
@@ -72,5 +53,4 @@ trait TEnhancedFlashMessages
 
 		return $this->flashMessagesTranslator;
 	}
-
 }
