@@ -16,7 +16,8 @@
 		"nette/utils": "^3.0"
 	},
 	"require-dev": {
-		"phpstan/phpstan-shim": "^0.11.12"
+		"phpstan/phpstan-shim": "^0.11.12",
+		"phpstan/phpstan-nette": "^0.11.1"
 	},
 	"autoload": {
 		"psr-4": {
