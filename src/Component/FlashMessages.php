@@ -44,11 +44,9 @@ class FlashMessages extends Control
 
 	public function render(): void
 	{
-		assert($this->template instanceof \stdClass);
 		$this->template->typeClasses = $this->typeClassMapping ?: self::$typeClasses;
 		$parent = $this->parent;
 		assert($parent instanceof Control);
-		assert($parent->template instanceof \stdClass);
 		$this->template->flashes = $parent->template->flashes;
 		assert($this->template instanceof Nette\Application\UI\ITemplate);
 		if (!$this->template->getFile()) {
